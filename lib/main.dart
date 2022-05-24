@@ -1,8 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_point_tab_bar/pointTabIndicator.dart';
+import 'package:flutter_zoom_drawer/config.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+  runApp(MyApp());
 }
+
+const Color p = Color(0xff416d69);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,105 +28,351 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Machine Test',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
+        primaryColor: p,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Zoom(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+final ZoomDrawerController z = ZoomDrawerController();
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class Zoom extends StatefulWidget {
+  const Zoom({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _ZoomState createState() => _ZoomState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _ZoomState extends State<Zoom> {
+  @override
+  Widget build(BuildContext context) {
+    return ZoomDrawer(
+      menuBackgroundColor: Color(0xffFFFFFF),
+      menuScreenOverlayColor: Color(0xffF5F5F5),
+      controller: z,
+      borderRadius: 24,
+      style: DrawerStyle.defaultStyle,
+      drawerShadowsBackgroundColor: Color(0xffF5F5F5),
+      showShadow: true,
+      openCurve: Curves.fastOutSlowIn,
+      slideWidth: MediaQuery.of(context).size.width * 0.65,
+      duration: const Duration(milliseconds: 500),
+      angle: 0.0,
+      mainScreen: const Body(),
+      menuScreen: Theme(
+        data: ThemeData.light(),
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            body: ListView(
+              children: [
+                SizedBox(
+                  height: 60,
+                ),
+                Center(
+                  child: Image.asset('images/i2.png'),
+                ),
+                SizedBox(
+                  height: 11,
+                ),
+                Text(
+                  "Emily Cyrus",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.alegreyaSans(
+                      fontSize: 20,
+                      color: Color(0xffE36DA6),
+                      fontWeight: FontWeight.w700),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Home",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Book A Nanny",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "How It Works",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 10.0),
+                //   child: Container(
+                //     color: Color(0xffE36DA6),
+                //     height: 1,
+                //     // indent: 15,
+                //   ),
+                // ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Why Nanny Vanny",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "My Bookings",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "My Profile",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Color(0xffE36DA6),
+                  indent: 15,
+                  thickness: 1.0,
+                ),
+                ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Support",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.alegreyaSans(
+                          fontSize: 18,
+                          color: Color(0xff262F71),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 60,
+                )
+              ],
+            )),
+      ),
+    );
+  }
+}
+
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+  int selectedIndex = 0;
+  final widgetOptions = [
+    Text('Beer List'),
+    Text('Add new beer'),
+    Text('Favourites'),
+  ];
+  final tabList = ['Tab 1', 'Tab 2'];
+  late TabController _tabController;
+
+  late AnimationController controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 100),
+    value: -1.0,
+  );
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  bool get isPanelVisible {
+    final AnimationStatus status = controller.status;
+    return status == AnimationStatus.completed ||
+        status == AnimationStatus.forward;
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(vsync: this, length: 4);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              CupertinoIcons.text_alignright,
+              color: Color(0xffE36DA6),
+              size: 22,
+            ),
+            onPressed: () {
+              z.toggle!();
+            },
+          ),
+        ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      backgroundColor: Colors.white,
+      bottomNavigationBar: TabBar(
+        // isScrollable: true,
+        labelColor: Color(0xffE36DA6),
+        unselectedLabelColor: Color(0xff5C5C5C),
+        unselectedLabelStyle: GoogleFonts.alegreyaSans(
+            fontSize: 10,
+            color: Color(0xff262F71),
+            fontWeight: FontWeight.w500),
+
+        labelStyle: GoogleFonts.alegreyaSans(
+            fontSize: 10,
+            color: Color(0xffE36DA6),
+            fontWeight: FontWeight.w500),
+
+        controller: _tabController,
+        indicator: PointTabIndicator(
+          position: PointTabIndicatorPosition.bottom,
+          color: Color(0xffE36DA6),
+          insets: EdgeInsets.only(bottom: 6),
         ),
+
+        tabs: [
+          Tab(
+              text: "Home",
+              icon: Icon(
+                Icons.home_outlined,
+                size: 22,
+              )),
+          Tab(
+            text: "Packages",
+            icon: Stack(
+              children: <Widget>[
+                Center(
+                  child: Icon(
+                    CupertinoIcons.circle,
+                    size: 22,
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.percent_sharp,
+                      size: 15,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Tab(
+              text: "Bookings",
+              icon: Icon(
+                Icons.access_time,
+                size: 22,
+              )),
+          Tab(
+              text: "Profile",
+              icon: Icon(
+                Icons.person_outline,
+                size: 22,
+              )),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          HomePage(),
+          Center(child: Text("Packages")),
+          Center(child: Text("Bookings")),
+          Center(child: Text("Profile")),
+        ],
+      ),
     );
+
+    // body: Text("DATA "));
+  }
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
   }
 }
